@@ -1,0 +1,1691 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Conduit API</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Conduit API</h1>
+    <div class="app-desc">Conduit API</div>
+    <div class="app-desc">More information: <a href="https://realworld.io">https://realworld.io</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    
+    <div class="license-info">MIT License</div>
+    <div class="license-url">https://opensource.org/licenses/MIT</div>
+  <h2>Access</h2>
+    <ol>
+      <li>APIKey KeyParamName:Authorization KeyInQuery:false KeyInHeader:true</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Articles">Articles</a></h4>
+  <ul>
+  <li><a href="#createArticle"><code><span class="http-method">post</span> /articles</code></a></li>
+  <li><a href="#deleteArticle"><code><span class="http-method">delete</span> /articles/{slug}</code></a></li>
+  <li><a href="#getArticle"><code><span class="http-method">get</span> /articles/{slug}</code></a></li>
+  <li><a href="#getArticles"><code><span class="http-method">get</span> /articles</code></a></li>
+  <li><a href="#getArticlesFeed"><code><span class="http-method">get</span> /articles/feed</code></a></li>
+  <li><a href="#updateArticle"><code><span class="http-method">put</span> /articles/{slug}</code></a></li>
+  </ul>
+  <h4><a href="#Comments">Comments</a></h4>
+  <ul>
+  <li><a href="#createArticleComment"><code><span class="http-method">post</span> /articles/{slug}/comments</code></a></li>
+  <li><a href="#deleteArticleComment"><code><span class="http-method">delete</span> /articles/{slug}/comments/{id}</code></a></li>
+  <li><a href="#getArticleComments"><code><span class="http-method">get</span> /articles/{slug}/comments</code></a></li>
+  </ul>
+  <h4><a href="#Default">Default</a></h4>
+  <ul>
+  <li><a href="#tagsGet"><code><span class="http-method">get</span> /tags</code></a></li>
+  </ul>
+  <h4><a href="#Favorites">Favorites</a></h4>
+  <ul>
+  <li><a href="#createArticleFavorite"><code><span class="http-method">post</span> /articles/{slug}/favorite</code></a></li>
+  <li><a href="#deleteArticleFavorite"><code><span class="http-method">delete</span> /articles/{slug}/favorite</code></a></li>
+  </ul>
+  <h4><a href="#Profile">Profile</a></h4>
+  <ul>
+  <li><a href="#followUserByUsername"><code><span class="http-method">post</span> /profiles/{username}/follow</code></a></li>
+  <li><a href="#getProfileByUsername"><code><span class="http-method">get</span> /profiles/{username}</code></a></li>
+  <li><a href="#unfollowUserByUsername"><code><span class="http-method">delete</span> /profiles/{username}/follow</code></a></li>
+  </ul>
+  <h4><a href="#UserAndAuthentication">UserAndAuthentication</a></h4>
+  <ul>
+  <li><a href="#createUser"><code><span class="http-method">post</span> /users</code></a></li>
+  <li><a href="#getCurrentUser"><code><span class="http-method">get</span> /user</code></a></li>
+  <li><a href="#login"><code><span class="http-method">post</span> /users/login</code></a></li>
+  <li><a href="#updateCurrentUser"><code><span class="http-method">put</span> /user</code></a></li>
+  </ul>
+
+  <h1><a name="Articles">Articles</a></h1>
+  <div class="method"><a name="createArticle"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /articles</code></pre></div>
+    <div class="method-summary">Create an article (<span class="nickname">createArticle</span>)</div>
+    <div class="method-notes">Create an article. Auth is required</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#NewArticleRequest">NewArticleRequest</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Article to create </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SingleArticleResponse">SingleArticleResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "article" : {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    OK
+        <a href="#SingleArticleResponse">SingleArticleResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteArticle"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /articles/{slug}</code></pre></div>
+    <div class="method-summary">Delete an article (<span class="nickname">deleteArticle</span>)</div>
+    <div class="method-notes">Delete an article. Auth is required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article to delete </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getArticle"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /articles/{slug}</code></pre></div>
+    <div class="method-summary">Get an article (<span class="nickname">getArticle</span>)</div>
+    <div class="method-notes">Get an article. Auth not required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article to get </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SingleArticleResponse">SingleArticleResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "article" : {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#SingleArticleResponse">SingleArticleResponse</a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getArticles"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /articles</code></pre></div>
+    <div class="method-summary">Get recent articles globally (<span class="nickname">getArticles</span>)</div>
+    <div class="method-notes">Get most recent articles globally. Use query parameters to filter results. Auth is optional</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">tag (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Filter by tag </div>      <div class="param">author (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Filter by author (username) </div>      <div class="param">favorited (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Filter by favorites of a user (username) </div>      <div class="param">limit (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Limit number of articles returned (default is 20) default: 20 </div>      <div class="param">offset (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Offset/skip number of articles (default is 0) default: 0 </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MultipleArticlesResponse">MultipleArticlesResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "articlesCount" : 6,
+  "articles" : [ {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }, {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#MultipleArticlesResponse">MultipleArticlesResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getArticlesFeed"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /articles/feed</code></pre></div>
+    <div class="method-summary">Get recent articles from users you follow (<span class="nickname">getArticlesFeed</span>)</div>
+    <div class="method-notes">Get most recent articles from users you follow. Use query parameters to limit. Auth is required</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">limit (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Limit number of articles returned (default is 20) default: 20 </div>      <div class="param">offset (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Offset/skip number of articles (default is 0) default: 0 </div>    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MultipleArticlesResponse">MultipleArticlesResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "articlesCount" : 6,
+  "articles" : [ {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }, {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#MultipleArticlesResponse">MultipleArticlesResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateArticle"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /articles/{slug}</code></pre></div>
+    <div class="method-summary">Update an article (<span class="nickname">updateArticle</span>)</div>
+    <div class="method-notes">Update an article. Auth is required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article to update </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#UpdateArticleRequest">UpdateArticleRequest</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Article to update </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SingleArticleResponse">SingleArticleResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "article" : {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#SingleArticleResponse">SingleArticleResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Comments">Comments</a></h1>
+  <div class="method"><a name="createArticleComment"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /articles/{slug}/comments</code></pre></div>
+    <div class="method-summary">Create a comment for an article (<span class="nickname">createArticleComment</span>)</div>
+    <div class="method-notes">Create a comment for an article. Auth is required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article that you want to create a comment for </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#NewCommentRequest">NewCommentRequest</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Comment you want to create </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SingleCommentResponse">SingleCommentResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "comment" : {
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "id" : 0,
+    "body" : "body",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#SingleCommentResponse">SingleCommentResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteArticleComment"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /articles/{slug}/comments/{id}</code></pre></div>
+    <div class="method-summary">Delete a comment for an article (<span class="nickname">deleteArticleComment</span>)</div>
+    <div class="method-notes">Delete a comment for an article. Auth is required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article that you want to delete a comment for </div>      <div class="param">id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the comment you want to delete </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getArticleComments"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /articles/{slug}/comments</code></pre></div>
+    <div class="method-summary">Get comments for an article (<span class="nickname">getArticleComments</span>)</div>
+    <div class="method-notes">Get the comments for an article. Auth is optional</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article that you want to get comments for </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MultipleCommentsResponse">MultipleCommentsResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "comments" : [ {
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "id" : 0,
+    "body" : "body",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "id" : 0,
+    "body" : "body",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#MultipleCommentsResponse">MultipleCommentsResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Default">Default</a></h1>
+  <div class="method"><a name="tagsGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /tags</code></pre></div>
+    <div class="method-summary">Get tags (<span class="nickname">tagsGet</span>)</div>
+    <div class="method-notes">Get tags. Auth not required</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TagsResponse">TagsResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "tags" : [ "tags", "tags" ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#TagsResponse">TagsResponse</a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Favorites">Favorites</a></h1>
+  <div class="method"><a name="createArticleFavorite"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /articles/{slug}/favorite</code></pre></div>
+    <div class="method-summary">Favorite an article (<span class="nickname">createArticleFavorite</span>)</div>
+    <div class="method-notes">Favorite an article. Auth is required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article that you want to favorite </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SingleArticleResponse">SingleArticleResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "article" : {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#SingleArticleResponse">SingleArticleResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteArticleFavorite"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /articles/{slug}/favorite</code></pre></div>
+    <div class="method-summary">Unfavorite an article (<span class="nickname">deleteArticleFavorite</span>)</div>
+    <div class="method-notes">Unfavorite an article. Auth is required</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">slug (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Slug of the article that you want to unfavorite </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#SingleArticleResponse">SingleArticleResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "article" : {
+    "tagList" : [ "tagList", "tagList" ],
+    "createdAt" : "2000-01-23T04:56:07.000+00:00",
+    "author" : {
+      "image" : "image",
+      "following" : true,
+      "bio" : "bio",
+      "username" : "username"
+    },
+    "description" : "description",
+    "title" : "title",
+    "body" : "body",
+    "favoritesCount" : 0,
+    "slug" : "slug",
+    "updatedAt" : "2000-01-23T04:56:07.000+00:00",
+    "favorited" : true
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#SingleArticleResponse">SingleArticleResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Profile">Profile</a></h1>
+  <div class="method"><a name="followUserByUsername"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /profiles/{username}/follow</code></pre></div>
+    <div class="method-summary">Follow a user (<span class="nickname">followUserByUsername</span>)</div>
+    <div class="method-notes">Follow a user by username</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Username of the profile you want to follow </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ProfileResponse">ProfileResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "profile" : {
+    "image" : "image",
+    "following" : true,
+    "bio" : "bio",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#ProfileResponse">ProfileResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getProfileByUsername"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /profiles/{username}</code></pre></div>
+    <div class="method-summary">Get a profile (<span class="nickname">getProfileByUsername</span>)</div>
+    <div class="method-notes">Get a profile of a user of the system. Auth is optional</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Username of the profile to get </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ProfileResponse">ProfileResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "profile" : {
+    "image" : "image",
+    "following" : true,
+    "bio" : "bio",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#ProfileResponse">ProfileResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="unfollowUserByUsername"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /profiles/{username}/follow</code></pre></div>
+    <div class="method-summary">Unfollow a user (<span class="nickname">unfollowUserByUsername</span>)</div>
+    <div class="method-notes">Unfollow a user by username</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Username of the profile you want to unfollow </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ProfileResponse">ProfileResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "profile" : {
+    "image" : "image",
+    "following" : true,
+    "bio" : "bio",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#ProfileResponse">ProfileResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="UserAndAuthentication">UserAndAuthentication</a></h1>
+  <div class="method"><a name="createUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users</code></pre></div>
+    <div class="method-summary">Register a new user (<span class="nickname">createUser</span>)</div>
+    <div class="method-notes">Register a new user</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#NewUserRequest">NewUserRequest</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Details of the new user to register </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#UserResponse">UserResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "user" : {
+    "image" : "image",
+    "bio" : "bio",
+    "email" : "email",
+    "token" : "token",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    OK
+        <a href="#UserResponse">UserResponse</a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getCurrentUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user</code></pre></div>
+    <div class="method-summary">Get current user (<span class="nickname">getCurrentUser</span>)</div>
+    <div class="method-notes">Gets the currently logged-in user</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#UserResponse">UserResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "user" : {
+    "image" : "image",
+    "bio" : "bio",
+    "email" : "email",
+    "token" : "token",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#UserResponse">UserResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="login"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/login</code></pre></div>
+    <div class="method-summary">Existing user login (<span class="nickname">login</span>)</div>
+    <div class="method-notes">Login for existing user</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#LoginUserRequest">LoginUserRequest</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Credentials to use </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#UserResponse">UserResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "user" : {
+    "image" : "image",
+    "bio" : "bio",
+    "email" : "email",
+    "token" : "token",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#UserResponse">UserResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateCurrentUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /user</code></pre></div>
+    <div class="method-summary">Update current user (<span class="nickname">updateCurrentUser</span>)</div>
+    <div class="method-notes">Updated user information for current user</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#UpdateUserRequest">UpdateUserRequest</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; User details to update. At least &lt;strong&gt;one&lt;/strong&gt; field is required. </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#UserResponse">UserResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "user" : {
+    "image" : "image",
+    "bio" : "bio",
+    "email" : "email",
+    "token" : "token",
+    "username" : "username"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#UserResponse">UserResponse</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">422</h4>
+    Unexpected error
+        <a href="#GenericErrorModel">GenericErrorModel</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Article"><code>Article</code></a></li>
+    <li><a href="#Comment"><code>Comment</code></a></li>
+    <li><a href="#GenericErrorModel"><code>GenericErrorModel</code></a></li>
+    <li><a href="#GenericErrorModel_errors"><code>GenericErrorModel_errors</code></a></li>
+    <li><a href="#LoginUser"><code>LoginUser</code></a></li>
+    <li><a href="#LoginUserRequest"><code>LoginUserRequest</code></a></li>
+    <li><a href="#MultipleArticlesResponse"><code>MultipleArticlesResponse</code></a></li>
+    <li><a href="#MultipleCommentsResponse"><code>MultipleCommentsResponse</code></a></li>
+    <li><a href="#NewArticle"><code>NewArticle</code></a></li>
+    <li><a href="#NewArticleRequest"><code>NewArticleRequest</code></a></li>
+    <li><a href="#NewComment"><code>NewComment</code></a></li>
+    <li><a href="#NewCommentRequest"><code>NewCommentRequest</code></a></li>
+    <li><a href="#NewUser"><code>NewUser</code></a></li>
+    <li><a href="#NewUserRequest"><code>NewUserRequest</code></a></li>
+    <li><a href="#Profile"><code>Profile</code></a></li>
+    <li><a href="#ProfileResponse"><code>ProfileResponse</code></a></li>
+    <li><a href="#SingleArticleResponse"><code>SingleArticleResponse</code></a></li>
+    <li><a href="#SingleCommentResponse"><code>SingleCommentResponse</code></a></li>
+    <li><a href="#TagsResponse"><code>TagsResponse</code></a></li>
+    <li><a href="#UpdateArticle"><code>UpdateArticle</code></a></li>
+    <li><a href="#UpdateArticleRequest"><code>UpdateArticleRequest</code></a></li>
+    <li><a href="#UpdateUser"><code>UpdateUser</code></a></li>
+    <li><a href="#UpdateUserRequest"><code>UpdateUserRequest</code></a></li>
+    <li><a href="#User"><code>User</code></a></li>
+    <li><a href="#UserResponse"><code>UserResponse</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Article"><code>Article</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">slug </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">title </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">body </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">tagList </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+<div class="param">createdAt </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">updatedAt </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">favorited </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+<div class="param">favoritesCount </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">author </div><div class="param-desc"><span class="param-type"><a href="#Profile">Profile</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Comment"><code>Comment</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">createdAt </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">updatedAt </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">body </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">author </div><div class="param-desc"><span class="param-type"><a href="#Profile">Profile</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenericErrorModel"><code>GenericErrorModel</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">errors </div><div class="param-desc"><span class="param-type"><a href="#GenericErrorModel_errors">GenericErrorModel_errors</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenericErrorModel_errors"><code>GenericErrorModel_errors</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">body </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LoginUser"><code>LoginUser</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: password</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LoginUserRequest"><code>LoginUserRequest</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">user </div><div class="param-desc"><span class="param-type"><a href="#LoginUser">LoginUser</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MultipleArticlesResponse"><code>MultipleArticlesResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">articles </div><div class="param-desc"><span class="param-type"><a href="#Article">array[Article]</a></span>  </div>
+<div class="param">articlesCount </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MultipleCommentsResponse"><code>MultipleCommentsResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">comments </div><div class="param-desc"><span class="param-type"><a href="#Comment">array[Comment]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewArticle"><code>NewArticle</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">title </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">body </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">tagList (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewArticleRequest"><code>NewArticleRequest</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">article </div><div class="param-desc"><span class="param-type"><a href="#NewArticle">NewArticle</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewComment"><code>NewComment</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">body </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewCommentRequest"><code>NewCommentRequest</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">comment </div><div class="param-desc"><span class="param-type"><a href="#NewComment">NewComment</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewUser"><code>NewUser</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: password</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="NewUserRequest"><code>NewUserRequest</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">user </div><div class="param-desc"><span class="param-type"><a href="#NewUser">NewUser</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Profile"><code>Profile</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bio </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">image </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">following </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ProfileResponse"><code>ProfileResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">profile </div><div class="param-desc"><span class="param-type"><a href="#Profile">Profile</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="SingleArticleResponse"><code>SingleArticleResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">article </div><div class="param-desc"><span class="param-type"><a href="#Article">Article</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="SingleCommentResponse"><code>SingleCommentResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">comment </div><div class="param-desc"><span class="param-type"><a href="#Comment">Comment</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TagsResponse"><code>TagsResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">tags </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UpdateArticle"><code>UpdateArticle</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">body (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UpdateArticleRequest"><code>UpdateArticleRequest</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">article </div><div class="param-desc"><span class="param-type"><a href="#UpdateArticle">UpdateArticle</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UpdateUser"><code>UpdateUser</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bio (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">image (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UpdateUserRequest"><code>UpdateUserRequest</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">user </div><div class="param-desc"><span class="param-type"><a href="#UpdateUser">UpdateUser</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">token </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">username </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bio </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">image </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserResponse"><code>UserResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">user </div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
