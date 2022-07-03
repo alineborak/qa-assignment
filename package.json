@@ -8,9 +8,12 @@
     "serve": "vite preview --port 4137",
     "lint:script": "eslint \"{src/**/*.{ts,vue}}\"",
     "lint:tsc": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "lint": "concurrently \"yarn lint:tsc\" \"yarn lint:script\""
+    "lint": "concurrently \"yarn lint:tsc\" \"yarn lint:script\"",
+    "cy:open": "CYPRESS_BASE_URL=https://demo.realworld.io/#/ cypress open",
+    "cy:headless": "CYPRESS_BASE_URL=https://demo.realworld.io/#/ cypress run"
   },
   "dependencies": {
+    "cypress": "^10.3.0",
     "insane": "^2.6.2",
     "marked": "^4.0.16",
     "pinia": "^2.0.14",
