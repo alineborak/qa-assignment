@@ -8,23 +8,6 @@
 // commands please read more here:
 // https://on.cypress.io/custom-commands
 // ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
 // declare global {
 //   namespace Cypress {
 //     interface Chainable {
@@ -35,3 +18,23 @@
 //     }
 //   }
 // }
+
+// let jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRlc3Rhc2Rmc2Rkc2YiLCJpYXQiOjE2NTY4NDc2MjksImV4cCI6MTY2MjAzMTYyOX0.YcX8LOGRreImhC3G8RQflkRrVmU-WQFOcmveCFJ9Gps"
+
+Cypress.Commands.add('backgroundLogin', () => {
+  cy.request({
+    method: 'POST',
+    url: 'https://conduit.productionready.io/api/users/login',
+    body: {
+      user: {
+        email: 'test@example.com',
+        password: 'test',
+      },
+    },
+  }).then((loginResponse) => {
+    console.log(loginResponse.body)
+    cy.log(loginResponse.body.user.token)
+  })
+})
+
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJ1c2VybmFtZSI6InRlc3Rhc2Rmc2Rkc2YiLCJpYXQiOjE2NTY4NTEyNjAsImV4cCI6MTY2MjAzNTI2MH0.zboFVubJmjf1hRP6kDap1VRfUfcROwh4_NCw3LarAcA"
