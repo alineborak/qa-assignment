@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe('Landpage', () => {
   beforeEach(() => {
     cy.intercept('https://demo.realworld.io/').as('homepage')
@@ -22,11 +20,7 @@ describe('Landpage', () => {
     cy.clickPopularTag()
   })
 
-  it('5. User front login', () => {
-    cy.userFrontLogin()
-  })
-
-  it('6. User background login', () => {
-    cy.userBackgroundLogin()
+  it('5. Register a new user', () => {
+    cy.userRegistration()
   })
 })

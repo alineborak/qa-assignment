@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+const Chance = require('chance')
+const chance = new Chance()
 
 Cypress.Commands.add('checkHomepageElements', () => {
   cy.get('h1[class*="logo-font ng-binding"]').should('be.visible')
@@ -52,11 +54,26 @@ Cypress.Commands.add('userBackgroundLogin', () => {
   }).then((loginResponse) => {
     console.log(loginResponse.body)
     cy.log(loginResponse.body.user.token)
-
     cy.visit('#/editor', {
       onBeforeLoad: (win) => {
         win.localStorage.setItem('jwtToken', loginResponse.body.user.token)
       },
     })
   })
+})
+
+Cypress.Commands.add('userRegistration', () => {
+  cy.visit('register')
+  cy.get('input[ng-model="$ctrl.formData.username"]').type(chance.name())
+  cy.get('input[ng-model="$ctrl.formData.email"]').type(chance.email())
+  cy.get('input[ng-model="$ctrl.formData.password"]').type('Abc12345678')
+  cy.get('button[ng-bind="$ctrl.title"]').click()
+})
+
+Cypress.Commands.add('createArticle', () => {
+  cy.get('input[ng-model*="title"]').type(chance.word())
+  cy.get('input[ng-model*="description"]').type(chance.word())
+  cy.get('textarea[ng-model*="body"]').type(chance.paragraph())
+  cy.get('input[ng-model*="tagField"]').type('cypress')
+  cy.get('button.btn-primary').click()
 })
