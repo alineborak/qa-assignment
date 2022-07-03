@@ -1,3 +1,11 @@
+> ## QA Assignment by Aline Bora
+To start the tests, you may use the following scripts:
+
+To run in the browser: ```yarn cy:open```
+To run in background mode: ```yarn cy:headless```
+
+I have added test scenarios covering both Main Task and Bonus Tasks and some additional test scenarios.
+
 > ## Thalex QA Assignment.
 
 Welcome to the QA Assignment for Thalex. This assignment is based on the [RealWordApp](https://github.com/gothinkster/realworld) project. It is a project that specifies a set of criteria for a blogging app that can then be built using various technologies. It acts as a reference of how to develop a certain baseline of functionalities and features of said blogging app across various technologies in order to get a better overview of their use.
