@@ -1,8 +1,8 @@
 > ## QA Assignment by Aline Bora
 To start the tests, you may use the following scripts:
 
-To run in the browser: ```yarn cy:open```
-To run in background mode: ```yarn cy:headless```
+To run locally in open mode: ```yarn cy:local```
+To run locally in background mode: ```yarn cy:local:headless```
 
 I have added test scenarios covering both Main Task and Bonus Tasks and some additional test scenarios.
 
