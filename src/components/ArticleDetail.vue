@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <div class="container">
+    <div class="container" data-testid="article-header">
       <h1>{{ article.title }}</h1>
 
       <ArticleDetailMeta

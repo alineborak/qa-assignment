@@ -2,7 +2,7 @@
   <div class="home-page">
     <div class="banner">
       <div class="container">
-        <h1 class="logo-font">
+        <h1 class="logo-font" data-testid="main-header">
           conduit
         </h1>
         <p>A place to share your knowledge.</p>
@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-md-3">
-          <div class="sidebar">
+          <div class="sidebar" data-testid="popular-tags">
             <Suspense>
               <PopularTags />
               <template #fallback>

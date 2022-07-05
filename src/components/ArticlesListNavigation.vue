@@ -11,6 +11,7 @@
           active-class="active"
           :name="link.routeName"
           :params="link.routeParams"
+              data-testid="tag-nav"
         >
           <i
             v-if="link.icon"

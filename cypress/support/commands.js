@@ -1,44 +1,41 @@
 /// <reference types="cypress" />
-const Chance = require('chance')
+import Chance from 'chance'
 const chance = new Chance()
 
+Cypress.Commands.add('visitPage', (pathname) => {
+  cy.visit(pathname)
+  cy.location('pathname').should('equal', pathname)
+})
+
 Cypress.Commands.add('checkHomepageElements', () => {
-  cy.get('h1[class*="logo-font ng-binding"]').should('be.visible')
-  cy.get('[class*="author ng-binding"]').should('be.visible')
-  cy.get('[class*="tag-list"]').should('be.visible')
-  cy.wait('@homepage')
+  cy.get('[data-testid="main-header"]').should('be.visible')
+  cy.get('[data-testid="author-name"]').eq(0).should('be.visible')
+  cy.get('[data-testid="popular-tags"]').should('be.visible')
 })
 
 Cypress.Commands.add('articleLoad', () => {
-  cy.intercept('https://conduit.productionready.io/api/articles/Create-a-new-implementation-1').as('article')
-  cy.get('h1[ng-bind*="ctrl.article.title"]').eq(0).click()
-  cy.wait('@article')
-  cy.get('[data="cmt"]').should('be.be.visible')
+  cy.get('[data-testid="article-header-link"]').eq(0).click()
+  cy.get('[data-testid="article-header"]').should('be.be.visible')
 })
 
 Cypress.Commands.add('usernameClickPage', () => {
-  cy.intercept('https://conduit.productionready.io/api/profiles/*').as('user-article')
-  cy.get('[class*="author ng-binding"]').eq(0).click()
-  cy.wait('@user-article')
+  cy.get('[data-testid="author-name"]').eq(0).click()
+  cy.url().should('include', '/#/profile')
 })
 
 Cypress.Commands.add('clickPopularTag', () => {
-  cy.intercept('https://conduit.productionready.io/api/articles?limit=10&offset=0&tag=*').as('tag')
-  cy.get('[class*="tag-default tag-pill ng-binding ng-scope"]').eq(1).click()
-  cy.wait('@tag')
-  cy.get('[class*="ion-pound"]').should('be.visible')
+  cy.get('[class*="tag-list"] [data-testid="tag-item"]').eq(0).click()
+  cy.get('[class*="nav-item"] [data-testid="tag-nav"]').eq(1).should('be.visible')
 })
 
 Cypress.Commands.add('userFrontLogin', () => {
-  cy.visit('/login')
-  cy.intercept('https://conduit.productionready.io/api/users/login').as('login')
+  cy.visit('login')
   cy.location().should((loc) => {
     expect(loc.hash).to.eq('#/login')
   })
-  cy.get('input[ng-model="$ctrl.formData.email"]').type('test@example.com')
-  cy.get('input[ng-model="$ctrl.formData.password"]').type('test')
-  cy.get('button.btn-primary').click()
-  cy.wait('@login')
+  cy.get('[data-testid="login-email"]').type('test@example.com')
+  cy.get('[data-testid="login-password"]').type('test')
+  cy.get('[data-testid="submit-btn"]').click()
 })
 
 Cypress.Commands.add('userBackgroundLogin', () => {
@@ -64,10 +61,10 @@ Cypress.Commands.add('userBackgroundLogin', () => {
 
 Cypress.Commands.add('userRegistration', () => {
   cy.visit('register')
-  cy.get('input[ng-model="$ctrl.formData.username"]').type(chance.name())
-  cy.get('input[ng-model="$ctrl.formData.email"]').type(chance.email())
-  cy.get('input[ng-model="$ctrl.formData.password"]').type('Abc12345678')
-  cy.get('button[ng-bind="$ctrl.title"]').click()
+  cy.get('[data-testid="user-name"]').type(chance.name())
+  cy.get('[data-testid="user-email"]').type(chance.email())
+  cy.get('[data-testid="user-password"]').type('Abc12345678')
+  cy.get('[data-testid="signup-btn"]').click()
 })
 
 Cypress.Commands.add('createArticle', () => {

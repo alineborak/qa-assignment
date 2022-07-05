@@ -12,6 +12,7 @@
           name="profile"
           :params="{username: props.article.author.username}"
           class="author"
+          data-testid="author-name"
         >
           {{ article.author.username }}
         </AppLink>
@@ -33,6 +34,7 @@
       name="article"
       :params="{slug: props.article.slug}"
       class="preview-link"
+      data-testid="article-header-link"
     >
       <h1>{{ article.title }}</h1>
       <p>{{ article.description }}</p>

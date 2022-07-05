@@ -9,6 +9,8 @@
     "lint:script": "eslint \"{src/**/*.{ts,vue}}\"",
     "lint:tsc": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "concurrently \"yarn lint:tsc\" \"yarn lint:script\"",
+    "cy:local": "CYPRESS_BASE_URL=http://localhost:3002/#/ cypress open",
+    "cy:local:headless": "cypress run --env --config-file cypress.local.config.json",
     "cy:open": "CYPRESS_BASE_URL=https://demo.realworld.io/#/ cypress open",
     "cy:headless": "CYPRESS_BASE_URL=https://demo.realworld.io/#/ cypress run"
   },

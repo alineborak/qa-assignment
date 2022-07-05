@@ -32,6 +32,7 @@
                 type="text"
                 required
                 placeholder="Your Name"
+                data-testid="user-name"
               >
             </fieldset>
             <fieldset class="form-group">
@@ -41,6 +42,7 @@
                 type="email"
                 required
                 placeholder="Email"
+                data-testid="user-email"
               >
             </fieldset>
             <fieldset class="form-group">
@@ -51,11 +53,13 @@
                 :minLength="8"
                 required
                 placeholder="Password"
+                data-testid="user-password"
               >
             </fieldset>
             <button
               type="submit"
               class="btn btn-lg btn-primary pull-xs-right"
+              data-testid="signup-btn"
               :disabled="!(form.email && form.username && form.password)"
             >
               Sign up

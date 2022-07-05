@@ -53,6 +53,7 @@
                 class="btn btn-lg btn-primary pull-xs-right"
                 :disabled="isButtonDisabled"
                 type="button"
+                data-testid="signin-btn"
               >
                 Update Settings
               </button>

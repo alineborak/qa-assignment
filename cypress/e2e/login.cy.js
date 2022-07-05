@@ -1,6 +1,5 @@
 describe('User login flow', () => {
   beforeEach(() => {
-    cy.intercept('https://demo.realworld.io/').as('homepage')
     cy.visit('/')
   })
 

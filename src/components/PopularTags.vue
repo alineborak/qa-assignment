@@ -8,6 +8,7 @@
       name="tag"
       :params="{tag}"
       class="tag-pill tag-default"
+      data-testid="tag-item"
     >
       {{ tag }}
     </AppLink>

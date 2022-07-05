@@ -1,7 +1,6 @@
 describe('Landpage', () => {
   beforeEach(() => {
-    cy.intercept('https://demo.realworld.io/').as('homepage')
-    cy.visit('/')
+    cy.visitPage('/')
   })
 
   it('1. Checking if homepage elements are displayed', () => {

@@ -35,6 +35,7 @@
                 type="email"
                 required
                 placeholder="Email"
+                data-testid="login-email"
               >
             </fieldset>
             <fieldset class=" form-group">
@@ -44,12 +45,14 @@
                 type="password"
                 required
                 placeholder="Password"
+                data-testid="login-password"
               >
             </fieldset>
             <button
               class="btn btn-lg btn-primary pull-xs-right"
               :disabled="!form.email || !form.password"
               type="submit"
+              data-testid="submit-btn"
             >
               Sign in
             </button>
