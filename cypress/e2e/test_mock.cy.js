@@ -7,7 +7,7 @@ describe('Files', () => {
   })
 
   it('fixture', () => {
-    cy.get('[class*="tag-list"]').should('contain', 'cypress')
+    cy.get('[data-testid="popular-tags"]').should('contain', 'cypress')
       .and('contain', 'automation')
       .and('contain', 'qaassignment')
   })
