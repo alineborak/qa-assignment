@@ -19,6 +19,7 @@
             active-class="active"
             :name="link.name"
             :params="link.params"
+             data-testid="menu-options"
           >
             <i
               v-if="link.icon"

@@ -29,6 +29,7 @@ Cypress.Commands.add('clickPopularTag', () => {
 })
 
 Cypress.Commands.add('userFrontLogin', () => {
+  cy.intercept('https://api.realworld.io/api/users/login').as('login')
   cy.visit('login')
   cy.location().should((loc) => {
     expect(loc.hash).to.eq('#/login')
@@ -68,9 +69,9 @@ Cypress.Commands.add('userRegistration', () => {
 })
 
 Cypress.Commands.add('createArticle', () => {
-  cy.get('input[ng-model*="title"]').type(chance.word())
-  cy.get('input[ng-model*="description"]').type(chance.word())
-  cy.get('textarea[ng-model*="body"]').type(chance.paragraph())
-  cy.get('input[ng-model*="tagField"]').type('cypress')
-  cy.get('button.btn-primary').click()
+  cy.get('[data-testid="article-title"]').type(chance.word())
+  cy.get('[data-testid="article-subject"]').type(chance.word())
+  cy.get('[data-testid="article-body"]').type(chance.paragraph())
+  cy.get('[data-testid="article-tags"]').type('cypress')
+  cy.get('[data-testid="publish-article-btn"]').click()
 })

@@ -10,6 +10,7 @@
                 type="text"
                 class="form-control form-control-lg"
                 placeholder="Article Title"
+                data-testid="article-title"
               >
             </fieldset>
             <fieldset class="form-group">
@@ -18,6 +19,7 @@
                 type="text"
                 class="form-control form-control-lg"
                 placeholder="What's this article about?"
+                data-testid="article-subject"
               >
             </fieldset>
             <fieldset class="form-group">
@@ -26,6 +28,7 @@
                 :rows="8"
                 class="form-control"
                 placeholder="Write your article (in markdown)"
+                data-testid="article-body"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -36,6 +39,7 @@
                 placeholder="Enter tags"
                 @change="addTag"
                 @keypress.enter.prevent="addTag"
+                data-testid="article-tags"
               >
               <div class="tag-list">
                 <span
@@ -55,6 +59,7 @@
               class="btn btn-lg pull-xs-right btn-primary"
               type="submit"
               :disabled="!(form.title && form.description && form.body)"
+              data-testid="publish-article-btn"
             >
               Publish Article
             </button>

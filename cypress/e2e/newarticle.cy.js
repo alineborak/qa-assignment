@@ -1,10 +1,8 @@
 describe('New article', () => {
-  beforeEach(() => {
-    cy.userBackgroundLogin()
-    cy.get('a[href*=editor]').click()
-  })
-
   it('1. Write an article ', () => {
+    cy.userFrontLogin()
+    cy.wait('@login')
+    cy.get('[data-testid="menu-options"]').eq(1).click()
     cy.createArticle()
   })
 })
