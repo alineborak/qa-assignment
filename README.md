@@ -6,15 +6,15 @@ To run locally in background mode: ```yarn cy:local:headless```
 
 I have added test scenarios covering both Main Task and Bonus Tasks and some additional test scenarios.
 
-> ## Thalex QA Assignment.
+> ## QA Assignment.
 
-Welcome to the QA Assignment for Thalex. This assignment is based on the [RealWordApp](https://github.com/gothinkster/realworld) project. It is a project that specifies a set of criteria for a blogging app that can then be built using various technologies. It acts as a reference of how to develop a certain baseline of functionalities and features of said blogging app across various technologies in order to get a better overview of their use.
+Welcome to the QA Assignment. This assignment is based on the [RealWordApp](https://github.com/gothinkster/realworld) project. It is a project that specifies a set of criteria for a blogging app that can then be built using various technologies. It acts as a reference of how to develop a certain baseline of functionalities and features of said blogging app across various technologies in order to get a better overview of their use.
 
 It also provides us with a preconfigured API service to use when developing a frontend application based on their requirements. This is such a frontend. Your task is to add automated testing to this app. 
 
 In `OVERVIEW.md` you will find an overview of the app, the various pages and their functionality. When running the Frontend app, you can log in with credentials `test@example.com` and password `test`. At the bottom of this page you will find instructions on how to run the app.
 
-At Thalex we use Cypress for our automated integration testing. When doing this test, you can use whatever tool you want, provided it works offline, and we can install and run it locally.
+We use Cypress for our automated integration testing. When doing this test, you can use whatever tool you want, provided it works offline, and we can install and run it locally.
 
 ### Main Task:
 
