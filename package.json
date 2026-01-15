@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "chance": "^1.1.8",
-    "cypress": "^10.3.0",
+    "cypress": "^15.9.0",
     "insane": "^2.6.2",
     "marked": "^4.0.16",
     "pinia": "^2.0.14",
