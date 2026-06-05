@@ -3350,9 +3350,9 @@ swagger2openapi@^7.0.5:
     yargs "^17.0.1"
 
 systeminformation@^5.27.14:
-  version "5.30.3"
-  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.30.3.tgz#33ae9abbc563470975de3dc9866f7e7e97d55238"
-  integrity sha512-NgHJUpA+y7j4asLQa9jgBt+Eb2piyQIXQ+YjOyd2K0cHNwbNJ6I06F5afOqOiaCuV/wrEyGrb0olg4aFLlJD+A==
+  version "5.31.7"
+  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.31.7.tgz#32009a8790af048299ea46d01e9f306adc1abb45"
+  integrity sha512-/8NC53e5nP9nmhn42/ncdOkyJnOoue/Vy+tJOyUGd1Yv66G069wK4rrziwhrqDETgk78CudTQupw5z19S5uoZw==
 
 text-table@^0.2.0:
   version "0.2.0"
